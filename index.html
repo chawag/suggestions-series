@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title>Suggest me a serie</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/theme-flatly.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+	<script src="node_modules/angular/angular.js"></script>
+	<script src="app/app.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Suggestions de séries</h1>
+
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- --- FORMULAIRE RECHERCHE --- -->
+				<div class="SearchingForm" ng-controller="SearchingForm">
+					<div style="margin-bottom:30px;" class="row">
+						<div class="col-sm-12">
+							<form id="searchByKeyword" class="input-group" ng-submit="searchingSeries()">
+
+								<input type="text" id="searchForm" class="form-control" ng-model="search" placeholder="ex: Breaking Bad, Lost,...">
+
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="submit">Chercher</button>
+								</span>
+
+							</form>
+							<span ng-show="resultsError" class="text-warning">{{ resultsError }}</span>
+						</div>
+					</div>
+
+					<!-- --- --- AFFICHE RESULTATS --- -->
+					<div ng-show="results" ng-repeat="result in results.Search">
+						<div class="col-sm-4" style="height:150px;margin-bottom:30px;">
+							<a href="" class="thumbnail" ng-click="addSeries(result.imdbID)">
+								<div class="row">
+									<div class="col-xs-6">
+										<img style="max-height:150px;max-width:100%;" src="{{ result.Poster }}" alt="poster">
+									</div>
+									<div class="col-xs-6 caption">
+										<h4>{{ result.Title }}</h4>
+										<p>{{ result.Year }}</p>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+
+					<!-- --- --- AFFICHE FICHE AJOUT --- -->
+					<div ng-show="serieToAdd">
+						<div class="panel panel-default">
+
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-sm-4">
+										<img class="img-responsive" src="{{ serieToAdd.Poster }}" alt="poster">
+									</div>
+									<div class="col-sm-8">
+										<h3>{{ serieToAdd.Title }}</h3>
+										<p>{{ serieToAdd.Year }}</p>
+										<p>Durée : {{ serieToAdd.Runtime }}</p>
+										<p>Genre : {{ serieToAdd.Genre }}</p>
+										<p>Casting : {{ serieToAdd.Actors }}</p>
+										<p>{{ serieToAdd.Plot }}</p>
+										<p>Pays : {{ serieToAdd.Country }}</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="panel-footer">
+								<form class="form-inline" ng-submit="addDbSerie()">
+									<div class="form-group">
+										<label for="pseudo"><small>Pseudo</small></label>
+										<input type="text" class="form-control" ng-model="pseudo" id="pseudo" placeholder="ex: Jean" required>
+									</div>
+									<div class="form-group">
+										<label for="comment"><small>Commentaire</small></label>
+										<input type="text" class="form-control" ng-model="comment" id="comment" placeholder="optionnel">
+									</div>
+									<button type="submit" class="btn btn-success">Suggérez-moi !</button>
+								</form>
+							</div>
+
+						</div>
+					</div>
+					<!-- --- --- ALERTE AJOUT OK --- -->
+					<div id="alertAjout" class="alert alert-info" role="alert">Merci pour votre suggestion !</div>
+
+				</div><!--end ng-controller="SearchingForm"-->
+
+			</div><!--end col-sm-12-->
+		</div><!--end row-->
+
+		<div class="row">
+			<div class="col-sm-12" ng-controller="SeriesListController">
+
+				<div class="panel panel-primary">
+					<div class="panel-heading">Suggérées récemment</div>
+
+					<table class="table" ng-init="getAllSeries(3, 'orderCreation')">
+						<tr ng-repeat="serie in series">	
+							<td><img style="max-height:150px;" src="{{ serie.ser_poster }}"></td>
+							<td>{{ serie.ser_title }}</td>
+							<td>{{ serie.ser_pseudo }}</td>
+							<td>
+								<span ng-show="serie.ser_label == 'pas vu'" class="label label-default">non vu</span>
+								<span ng-show="serie.ser_label == 'vu'" class="label label-success">vu</span>
+							</td>
+							<td><a href="" class="btn btn-default">Détails</a></td>	
+						</tr>
+					</table>
+
+				</div>
+
+			</div><!--end ng-controller="SeriesListController"-->
+		</div><!--end row-->
+
+	</div><!--end container-->
+</body>
+</html>

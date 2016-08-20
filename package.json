@@ -1,0 +1,17 @@
+{
+  "name": "suggestions-series",
+  "version": "0.1.0",
+  "author": "Charlotte YA W.",
+  "description": "one-page app with angular, ajax and PHP/mySQL database",
+  "license": "ISC",
+  "scripts": {
+    "dev": "lite-server"
+  },
+  "dependencies": {
+    "angular": "^1.5.8",
+    "bootstrap": "^3.3.7"
+  },
+  "devDependencies": {
+    "lite-server": "^2.2.2"
+  }
+}
