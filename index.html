@@ -105,19 +105,21 @@
 			<div class="col-sm-12" ng-controller="SeriesListController">
 
 				<div class="panel panel-primary">
-					<div class="panel-heading">Suggérées récemment</div>
+					<div class="panel-heading">Suggérées récemment <a href="" style="display:block; float:right;" id="viewAllBtn" ng-click="getAllSeries(0, 'orderCreation')">voir tous</a></div>
 
 					<table class="table" ng-init="getAllSeries(3, 'orderCreation')">
-						<tr ng-repeat="serie in series">	
-							<td><img style="max-height:150px;" src="{{ serie.ser_poster }}"></td>
-							<td>{{ serie.ser_title }}</td>
-							<td>{{ serie.ser_pseudo }}</td>
-							<td>
-								<span ng-show="serie.ser_label == 'pas vu'" class="label label-default">non vu</span>
-								<span ng-show="serie.ser_label == 'vu'" class="label label-success">vu</span>
-							</td>
-							<td><a href="" class="btn btn-default">Détails</a></td>	
-						</tr>
+						<tbody>
+							<tr ng-repeat="serie in series">	
+								<td><img style="max-height:150px;" src="{{ serie.ser_poster }}"></td>
+								<td>{{ serie.ser_title }}</td>
+								<td>{{ serie.ser_pseudo }}</td>
+								<td>
+									<span ng-show="serie.ser_label == 'pas vu'" class="label label-default">non vu</span>
+									<span ng-show="serie.ser_label == 'vu'" class="label label-success">vu</span>
+								</td>
+								<td></td>	
+							</tr>
+						</tbody>
 					</table>
 
 				</div>
