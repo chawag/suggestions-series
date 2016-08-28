@@ -1,3 +1,10 @@
 #alertAjout{
 	display: none;
 }
+#viewAllBtn, #view3Btn{
+	display:block; 
+	float:right;
+}
+#view3Btn{
+	display: none;
+}

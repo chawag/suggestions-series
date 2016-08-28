@@ -105,7 +105,11 @@
 			<div class="col-sm-12" ng-controller="SeriesListController">
 
 				<div class="panel panel-primary">
-					<div class="panel-heading">Suggérées récemment <a href="" style="display:block; float:right;" id="viewAllBtn" ng-click="getAllSeries(0, 'orderCreation')">voir tous</a></div>
+					<div class="panel-heading">
+						Suggérées récemment 
+						<a href="" id="viewAllBtn" ng-click="getAllSeries(0, 'orderCreation')">voir tous</a>
+						<a href="" id="view3Btn" ng-click="getAllSeries(3, 'orderCreation')">rétrécir</a>
+					</div>
 
 					<table class="table" ng-init="getAllSeries(3, 'orderCreation')">
 						<tbody>

@@ -4,7 +4,8 @@ var myApp = angular.module('myApp', []);
 ** Formulaire de recherche de séries
 */
 myApp.controller('SearchingForm', function($scope, $http) {
-	
+	/** Recherche API Omdb
+	-----------------------------------------------------------------*/
 	$scope.searchingSeries = function() {
 		$('#alertAjout').hide();
 
@@ -31,6 +32,8 @@ myApp.controller('SearchingForm', function($scope, $http) {
 		});
 	};
 
+	/** Trouve une série cliquée de l' API Omdb
+	-----------------------------------------------------------------*/
 	$scope.addSeries = function(imdbID) {
 		myUrlOne = "http://www.omdbapi.com/?i=" + imdbID + "&plot=full&r=json";
 
@@ -47,6 +50,8 @@ myApp.controller('SearchingForm', function($scope, $http) {
 		});
 	};
 
+	/** Ajout donées série et pseudo et comm en BDD
+	-----------------------------------------------------------------*/
 	$scope.addDbSerie = function() {
 		// ajax à add_serie.php
 		$http({
@@ -85,6 +90,8 @@ myApp.controller('SearchingForm', function($scope, $http) {
 */
 myApp.controller('SeriesListController', function($scope, $http) {
 	$scope.getAllSeries = function(limit, orderBy) {
+		/** Query ajax liste des séries
+		-----------------------------------------------------------------*/
 		$http({
 			url: 'ajax/fetch_series.php',
 			method: 'POST',
@@ -97,5 +104,16 @@ myApp.controller('SeriesListController', function($scope, $http) {
 		.error(function(data, status, headers, config) {
 			console.log(status);
 		});
+
+		/** Toggle boutons agrandir / rétrécir
+		-----------------------------------------------------------------*/
+		if (limit == 0) {
+			$('#viewAllBtn').css('display', 'none');
+			$('#view3Btn').css('display', 'initial');
+		}
+		else if (limit == 3) {
+			$('#viewAllBtn').css('display', 'initial');
+			$('#view3Btn').css('display', 'none');
+		}
 	};
 });
