@@ -8,3 +8,15 @@
 #view3Btn{
 	display: none;
 }
+td{
+	/*min-width: 120px;*/
+}
+.poster{
+	max-height:50px;
+}
+.details-serie{
+	display: none;
+}
+.glyphTop{
+	display: none;
+}

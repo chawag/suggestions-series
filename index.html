@@ -45,7 +45,7 @@
 							<a href="" class="thumbnail" ng-click="addSeries(result.imdbID)">
 								<div class="row">
 									<div class="col-xs-6">
-										<img style="max-height:150px;max-width:100%;" src="{{ result.Poster }}" alt="poster">
+										<img style="max-height:150px;max-width:100%;" src="{{ result.Poster ? result.Poster : '' }}" alt="poster">
 									</div>
 									<div class="col-xs-6 caption">
 										<h4>{{ result.Title }}</h4>
@@ -94,7 +94,7 @@
 						</div>
 					</div>
 					<!-- --- --- ALERTE AJOUT OK --- -->
-					<div id="alertAjout" class="alert alert-info" role="alert">Merci pour votre suggestion !</div>
+					<div id="alertAjout" class="alert alert-info" role="alert">Merci pour votre suggestion ! <img src="img/loader.gif"></div>
 
 				</div><!--end ng-controller="SearchingForm"-->
 
@@ -110,22 +110,57 @@
 						<a href="" id="viewAllBtn" ng-click="getAllSeries(0, 'orderCreation')">voir tous</a>
 						<a href="" id="view3Btn" ng-click="getAllSeries(3, 'orderCreation')">rétrécir</a>
 					</div>
+					<div class="panel-body table-responsive">
+						<table class="table" ng-init="getAllSeries(3, 'orderCreation')">
+							<tbody ng-repeat="serie in series">
+								<tr>
+									<td rowspan="4"><img class="poster poster-{{ serie.ser_imdbID }}" src="{{ serie.ser_poster }}"></td>
+									<td><strong>{{ serie.ser_title }}</strong></td>
+									<td><small>suggéré par </small><strong>{{ serie.ser_pseudo }}</strong></td>
+									<td colspan="2"><i>&ldquo;{{ serie.ser_comments }}Génial, super génial&rdquo;</i></td>
+									<td>ajouté le: {{ serie.ser_created }}</td>	
+									<td>
+										<a href="#" ng-click="getDetails(serie.ser_imdbID)" class="glyphBot"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
+										<a href="#" ng-click="removeDetails(serie.ser_imdbID)" class="glyphTop"><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></a>
+									</td>
+								</tr>
 
-					<table class="table" ng-init="getAllSeries(3, 'orderCreation')">
-						<tbody>
-							<tr ng-repeat="serie in series">	
-								<td><img style="max-height:150px;" src="{{ serie.ser_poster }}"></td>
-								<td>{{ serie.ser_title }}</td>
-								<td>{{ serie.ser_pseudo }}</td>
-								<td>
-									<span ng-show="serie.ser_label == 'pas vu'" class="label label-default">non vu</span>
-									<span ng-show="serie.ser_label == 'vu'" class="label label-success">vu</span>
-								</td>
-								<td></td>	
-							</tr>
-						</tbody>
-					</table>
-
+								<!-- détails cachés
+								----------------------------------------------------------------- -->
+								<tr class="details-serie {{ serie.ser_imdbID }}">
+									<td colspan="4"><small>avec </small>{{ serie.ser_actors }}</td>
+									<td>modifié le: {{ serie.ser_updated }}0000-00-00 00:00:00</td>
+									<td></td>	
+								</tr>
+								<tr class="details-serie {{ serie.ser_imdbID }}">
+									<td>{{ serie.ser_runtime }}</td>
+									<td colspan="2">{{ serie.ser_genre }}</td>
+									<td>
+										{{ serie.ser_points }}
+										<span ng-show="serie.ser_points <= 0" style="color:lightgrey;" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+										<span ng-show="serie.ser_points >= 1" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+										<span ng-show="serie.ser_points >= 2" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+										<span ng-show="serie.ser_points >= 3" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+										<span ng-show="serie.ser_points >= 4" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+										<span ng-show="serie.ser_points >= 5" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+									</td>
+									<td>
+										<span ng-show="serie.ser_label == 'pas vu'" class="label label-default">non vu</span>
+										<span ng-show="serie.ser_label == 'vu'" class="label label-success">vu</span>
+									</td>
+									<td></td>
+								</tr>
+								<tr class="details-serie {{ serie.ser_imdbID }}">
+									<td>{{ serie.ser_country }}</td>
+									<td>{{ serie.ser_year }}</td>
+									<td colspan="2">&ldquo;<i>{{ serie.ser_feedback }}Oh oui ! Génial ! Vraiment&rdquo;</i><small> -Charlotte</small></td>
+									<td></td>
+									<td></td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
 				</div>
 
 			</div><!--end ng-controller="SeriesListController"-->

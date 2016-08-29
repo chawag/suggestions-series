@@ -77,6 +77,7 @@ myApp.controller('SearchingForm', function($scope, $http) {
 			if (data == "ok") {
 				$scope.serieToAdd = '';
 				$('#alertAjout').show();
+				setTimeout(function(){ location.reload(); }, 4000);
 			}
 		})
 		.error(function(data, status, headers, config) {
@@ -100,6 +101,7 @@ myApp.controller('SeriesListController', function($scope, $http) {
 		.success(function(data, status, headers, config) {
 			console.log(data);
 			$scope.series = data;
+			console.log($scope.series);
 		})
 		.error(function(data, status, headers, config) {
 			console.log(status);
@@ -115,5 +117,22 @@ myApp.controller('SeriesListController', function($scope, $http) {
 			$('#viewAllBtn').css('display', 'initial');
 			$('#view3Btn').css('display', 'none');
 		}
+
+		/** Toggle pour afficher détails d'une série
+		-----------------------------------------------------------------*/
+		$scope.getDetails = function(imdbID) {
+			$("."+imdbID).css('display', 'initial');
+			$(".poster-"+imdbID).css('max-height', '150px');
+
+			$(".glyphTop").css('display', 'initial');
+			$(".glyphBot").css('display', 'none');
+		};
+		$scope.removeDetails = function(imdbID) {
+			$("."+imdbID).css('display', 'none');
+			$(".poster-"+imdbID).css('max-height', '50px');
+
+			$(".glyphTop").css('display', 'none');
+			$(".glyphBot").css('display', 'initial');
+		};
 	};
 });
