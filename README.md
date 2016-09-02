@@ -1,6 +1,6 @@
 ## Suggestions de séries
 
-Suggest TV series _ one-page with Angular, Ajax, omdb API and MySQL database.
+Suggest TV series _ one-page with AngularJS, Ajax, omdb API and MySQL database.
 
 ---
 
